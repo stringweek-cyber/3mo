@@ -19,7 +19,7 @@
             overflow: hidden;
         }
 
-        /* 2. 상단 헤더 (여백 수정됨) */
+        /* 2. 상단 헤더 */
         header {
             background-color: transparent;
             padding: 20px 40px 20px 40px; 
@@ -56,7 +56,8 @@
 
         /* 4. 왼쪽 사이드바 */
         .sidebar {
-            width: 290px; 
+            /* ★★★ 너비 확대 (글자 잘림 방지) ★★★ */
+            width: 350px; 
             background-color: #fff;
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.03);
@@ -162,50 +163,65 @@
         .file-list {
             display: none;
             background-color: #fff;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
         .root-item.open > .file-list { display: block; }
         
         .paper-item {
-            display: flex;
-            align-items: center;
-            padding: 8px 15px 8px 35px; 
-            gap: 8px;
+            display: flex;           
+            align-items: center;     
+            justify-content: space-between; 
+            padding: 8px 15px 8px 35px;     
             transition: 0.2s;
+            width: 100%;
         }
         .paper-item:hover { background-color: #f4f8fb; }
         
+        /* 왼쪽 (아이콘 + 텍스트) */
+        .paper-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1; 
+            min-width: 0; 
+            cursor: pointer;
+        }
+
         .paper-text {
             font-size: 13px;
             color: #333;
-            cursor: pointer;
-            flex: 1;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .paper-text:hover { color: #007bff; text-decoration: underline; }
+        .paper-left:hover .paper-text { color: #007bff; text-decoration: underline; }
         
-        .paper-icon { font-size: 16px; cursor: default; }
+        .paper-icon { font-size: 16px; flex-shrink: 0; }
         
+        /* 오른쪽 (다운로드 버튼) */
         .btn-download {
-            padding: 3px 8px;
+            padding: 4px 10px;
             background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 20px; 
             font-size: 11px;
-            color: #666;
+            font-weight: 600;
+            color: #24292e;
             cursor: pointer;
             text-decoration: none;
             white-space: nowrap;
             display: flex;
             align-items: center;
+            justify-content: center;
+            margin-left: 10px; 
+            flex-shrink: 0;    
         }
-        .btn-download:hover { background-color: #f1f3f5; color: #333; border-color: #ccc; }
+        .btn-download:hover { background-color: #f6f8fa; border-color: #24292e; }
 
+        /* EBS 링크 */
         .ebs-link-item {
-            margin-top: 15px;
-            padding: 10px 15px 10px 35px;
+            margin-top: 10px;
+            padding: 12px 15px 12px 35px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -214,8 +230,9 @@
             color: #007bff;
             text-decoration: none;
             border-top: 1px dashed #eee;
+            background-color: #fafafa;
         }
-        .ebs-link-item:hover { background-color: #f8f9fa; text-decoration: underline; }
+        .ebs-link-item:hover { background-color: #f0f7ff; text-decoration: underline; }
 
 
         /* 5. 오른쪽 콘텐츠 영역 */
@@ -332,9 +349,9 @@
         .preview-frame {
             width: 100%;
             height: 80vh;
-            border: none;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            background-color: #f9f9f9;
+            background-color: #fff;
         }
 
         .placeholder {
@@ -430,9 +447,8 @@
 
         // ★★★ 통합 문제 DB (2025 ~ 2017) ★★★
         const problemDB = [
-            // ----------------------------------------------------
-            // 2025 기출
-            // ----------------------------------------------------
+            // ... (문제 데이터는 기존과 동일하게 유지) ...
+            // 2025
             { chapter: ["2. 기권과 날씨", "2. 날씨와 기후변화"], file: "2025 (1).png", answer: "④", desc: "해륙풍과 비열" },
             { chapter: ["6. 빛과 파동", "3. 태양계", "3. 빛과 파동", "7. 태양계"], file: "2025 (2).png", answer: "④", desc: "빛의 합성 및 달의 위상" },
             { chapter: ["4. 식물과 에너지", "5. 식물과 에너지"], file: "2025 (3).png", answer: "③", desc: "광합성 과정" },
@@ -453,10 +469,7 @@
             { chapter: ["5. 동물과 에너지", "6. 동물과 에너지"], file: "2025 (18).png", answer: "②", desc: "동물과 에너지" },
             { chapter: ["1. 화학 반응의 규칙과 에너지 변화", "1. 화학 반응의 규칙성"], file: "2025 (19).png", answer: "③", desc: "화학 반응" },
             { chapter: ["3. 태양계", "7. 태양계", "6. 빛과 파동", "3. 빛과 파동"], file: "2025 (20).png", answer: "⑤", desc: "태양계" },
-
-            // ----------------------------------------------------
-            // 2024 기출
-            // ----------------------------------------------------
+            // 2024 (나머지 연도 데이터도 동일하게 유지)
             { chapter: ["8. 열과 우리 생활", "3. 열"], file: "2024 (1).png", answer: "④", desc: "열과 우리 생활" },
             { chapter: ["2. 여러 가지 힘", "5. 힘의 작용"], file: "2024 (2).png", answer: "②", desc: "여러 가지 힘" },
             { chapter: ["6. 빛과 파동", "3. 빛과 파동"], file: "2024 (3).png", answer: "③", desc: "빛과 파동" },
@@ -477,10 +490,7 @@
             { chapter: ["7. 별과 우주", "8. 별과 우주"], file: "2024 (18).png", answer: "②", desc: "별과 우주" },
             { chapter: ["3. 태양계", "7. 태양계"], file: "2024 (19).png", answer: "①", desc: "태양계" },
             { chapter: ["2. 기권과 날씨", "2. 날씨와 기후변화"], file: "2024 (20).png", answer: "⑤", desc: "기권과 날씨" },
-
-            // ----------------------------------------------------
-            // 2023 기출
-            // ----------------------------------------------------
+            // 2023
             { chapter: ["2. 전기와 자기", "7. 전기와 자기"], file: "2023 (1).png", answer: "②", desc: "전기와 자기" },
             { chapter: ["3. 운동과 에너지", "4. 운동과 에너지"], file: "2023 (2).png", answer: "③", desc: "운동과 에너지" },
             { chapter: ["8. 열과 우리 생활", "3. 열"], file: "2023 (3).png", answer: "④", desc: "열과 우리 생활" },
@@ -501,10 +511,7 @@
             { chapter: ["3. 태양계", "7. 태양계"], file: "2023 (18).png", answer: "①", desc: "태양계" },
             { chapter: ["2. 기권과 날씨", "2. 날씨와 기후변화"], file: "2023 (19).png", answer: "④", desc: "기권과 날씨" },
             { chapter: ["7. 별과 우주", "8. 별과 우주"], file: "2023 (20).png", answer: "⑤", desc: "별과 우주" },
-
-            // ----------------------------------------------------
-            // 2022 기출
-            // ----------------------------------------------------
+            // 2022
             { chapter: ["8. 열과 우리 생활", "3. 열"], file: "2022 (1).png", answer: "④", desc: "열과 우리 생활" },
             { chapter: ["2. 전기와 자기", "7. 전기와 자기"], file: "2022 (2).png", answer: "④", desc: "전기와 자기" },
             { chapter: ["3. 운동과 에너지", "4. 운동과 에너지"], file: "2022 (3).png", answer: "①", desc: "운동과 에너지" },
@@ -525,10 +532,7 @@
             { chapter: ["7. 수권과 해수의 순환", "3. 수권과 해수의 순환"], file: "2022 (18).png", answer: "②", desc: "수권과 해수의 순환" },
             { chapter: ["2. 기권과 날씨", "2. 날씨와 기후변화"], file: "2022 (19).png", answer: "③", desc: "기권과 날씨" },
             { chapter: ["3. 태양계", "7. 태양계"], file: "2022 (20).png", answer: "④", desc: "태양계" },
-
-            // ----------------------------------------------------
-            // 2021 기출
-            // ----------------------------------------------------
+            // 2021
             { chapter: ["3. 운동과 에너지", "4. 운동과 에너지"], file: "2021 (1).png", answer: "③", desc: "운동과 에너지" },
             { chapter: ["2. 전기와 자기", "7. 전기와 자기"], file: "2021 (2).png", answer: "①", desc: "전기와 자기" },
             { chapter: ["6. 빛과 파동", "3. 빛과 파동"], file: "2021 (3).png", answer: "④", desc: "빛과 파동" },
@@ -549,10 +553,7 @@
             { chapter: ["2. 기권과 날씨", "2. 날씨와 기후변화"], file: "2021 (18).png", answer: "①", desc: "기권과 날씨" },
             { chapter: ["7. 수권과 해수의 순환", "3. 수권과 해수의 순환"], file: "2021 (19).png", answer: "⑥", desc: "수권과 해수의 순환" },
             { chapter: ["3. 태양계", "7. 태양계"], file: "2021 (20).png", answer: "①", desc: "태양계" },
-
-            // ----------------------------------------------------
-            // 2020 기출
-            // ----------------------------------------------------
+            // 2020
             { chapter: ["3. 운동과 에너지", "4. 운동과 에너지"], file: "2020 (1).png", answer: "②", desc: "운동과 에너지" },
             { chapter: ["3. 운동과 에너지", "4. 운동과 에너지"], file: "2020 (2).png", answer: "①", desc: "운동과 에너지" },
             { chapter: ["2. 전기와 자기", "7. 전기와 자기"], file: "2020 (3).png", answer: "④", desc: "전기와 자기" },
@@ -573,10 +574,7 @@
             { chapter: ["7. 별과 우주", "8. 별과 우주"], file: "2020 (18).png", answer: "②", desc: "별과 우주" },
             { chapter: ["3. 태양계", "7. 태양계"], file: "2020 (19).png", answer: "①", desc: "태양계" },
             { chapter: ["2. 기권과 날씨", "2. 날씨와 기후변화"], file: "2020 (20).png", answer: "④", desc: "기권과 날씨" },
-
-            // ----------------------------------------------------
-            // 2019 기출
-            // ----------------------------------------------------
+            // 2019
             { chapter: ["2. 여러 가지 힘", "5. 힘의 작용"], file: "2019 (1).png", answer: "⑤", desc: "여러 가지 힘" },
             { chapter: ["8. 열과 우리 생활", "3. 열"], file: "2019 (2).png", answer: "④", desc: "열과 우리 생활" },
             { chapter: ["6. 에너지 전환과 보존", "4. 운동과 에너지"], file: "2019 (3).png", answer: "②", desc: "에너지 전환과 보존" },
@@ -597,10 +595,7 @@
             { chapter: ["2. 기권과 날씨", "2. 날씨와 기후변화"], file: "2019 (18).png", answer: "⑤", desc: "기권과 날씨" },
             { chapter: ["7. 별과 우주", "8. 별과 우주"], file: "2019 (19).png", answer: "③", desc: "별과 우주" },
             { chapter: ["7. 별과 우주", "8. 별과 우주"], file: "2019 (20).png", answer: "②", desc: "별과 우주" },
-
-            // ----------------------------------------------------
-            // 2018 기출
-            // ----------------------------------------------------
+            // 2018
             { chapter: ["2. 여러 가지 힘", "5. 힘의 작용"], file: "2018 (1).png", answer: "②", desc: "여러 가지 힘" },
             { chapter: ["6. 빛과 파동", "3. 빛과 파동"], file: "2018 (2).png", answer: "①", desc: "빛과 파동" },
             { chapter: ["2. 전기와 자기", "7. 전기와 자기"], file: "2018 (3).png", answer: "④", desc: "전기와 자기" },
@@ -621,10 +616,7 @@
             { chapter: ["3. 태양계", "7. 태양계"], file: "2018 (18).png", answer: "④", desc: "태양계" },
             { chapter: ["1. 지권의 변화", "2. 지권의 변화"], file: "2018 (19).png", answer: "⑤", desc: "지권의 변화" },
             { chapter: ["7. 수권과 해수의 순환", "3. 수권과 해수의 순환"], file: "2018 (20).png", answer: "②", desc: "수권과 해수의 순환" },
-
-            // ----------------------------------------------------
-            // 2017 기출
-            // ----------------------------------------------------
+            // 2017
             { chapter: ["2. 여러 가지 힘", "5. 힘의 작용"], file: "2017 (1).png", answer: "②", desc: "여러 가지 힘" },
             { chapter: ["8. 열과 우리 생활", "3. 열"], file: "2017 (2).png", answer: "①", desc: "열과 우리 생활" },
             { chapter: ["3. 운동과 에너지", "4. 운동과 에너지"], file: "2017 (3).png", answer: "④", desc: "운동과 에너지" },
@@ -660,13 +652,13 @@
         window.onload = function() {
             const menuContainer = document.getElementById('menu-container');
             
-            // 1. 2015 교육과정 (루트 오픈, 학년 닫힘)
-            createCurriculumTree(menuContainer, "2015 교육과정", curriculum2015, [], true);
+            // 1. 2015 교육과정 (3학년만 오픈)
+            createCurriculumTree(menuContainer, "2015 교육과정", curriculum2015, ["3학년"], true);
 
-            // 2. 2022 교육과정 (루트 오픈, 학년 닫힘)
-            createCurriculumTree(menuContainer, "2022 교육과정", curriculum2022, [], true);
+            // 2. 2022 교육과정 (1,2학년 오픈)
+            createCurriculumTree(menuContainer, "2022 교육과정", curriculum2022, ["1학년", "2학년"], true);
 
-            // 3. 원안지 모음 (닫힘)
+            // 3. 원안지 모음 (기본 닫힘)
             createOriginalPapers(menuContainer, false);
         };
 
@@ -678,9 +670,18 @@
 
             const rootTitle = document.createElement('div');
             rootTitle.className = 'root-title';
-            // ★ 폴더 이모지 적용 ★
-            rootTitle.innerHTML = `<span class="arrow-icon">${chevronIcon}</span> <span class="folder-icon">${folderIcon}</span> ${title}`;
+            // ★ 폴더 아이콘 적용 ★
+            rootTitle.innerHTML = `<span class="arrow-icon">${chevronIcon}</span> <span class="folder-icon">${folderIcon}</span> <span>${title}</span>`;
             
+            const folderSpan = rootTitle.querySelector('.folder-icon');
+            folderSpan.style.display = 'inline-flex';
+            folderSpan.style.alignItems = 'center';
+            folderSpan.style.justifyContent = 'center';
+            folderSpan.style.width = '18px';
+            folderSpan.style.height = '18px';
+            folderSpan.style.marginRight = '5px';
+            folderSpan.style.color = '#ffc107'; /* 폴더 색상 (노란색) */
+
             const rootContent = document.createElement('div');
             rootContent.className = 'grade-list-container';
             if(isRootOpen) rootContent.classList.add('open');
@@ -730,7 +731,7 @@
             container.appendChild(rootItem);
         }
 
-        // ★★★ 원안지 모음 생성 함수 (기능 대폭 추가) ★★★
+        // ★★★ 원안지 모음 생성 함수 (경로 수정됨) ★★★
         function createOriginalPapers(container, isRootOpen = false) {
             const rootItem = document.createElement('div');
             rootItem.className = 'root-item';
@@ -738,8 +739,17 @@
 
             const rootTitle = document.createElement('div');
             rootTitle.className = 'root-title';
-            rootTitle.innerHTML = `<span class="arrow-icon">${chevronIcon}</span> <span class="folder-icon">${folderIcon}</span> 원안지 모음`;
+            rootTitle.innerHTML = `<span class="arrow-icon">${chevronIcon}</span> <span class="folder-icon">${folderIcon}</span> <span>원안지 모음</span>`;
             
+            const folderSpan = rootTitle.querySelector('.folder-icon');
+            folderSpan.style.display = 'inline-flex';
+            folderSpan.style.alignItems = 'center';
+            folderSpan.style.justifyContent = 'center';
+            folderSpan.style.width = '18px';
+            folderSpan.style.height = '18px';
+            folderSpan.style.marginRight = '5px';
+            folderSpan.style.color = '#ffc107';
+
             const fileList = document.createElement('div');
             fileList.className = 'file-list';
             if(isRootOpen) fileList.style.display = 'block'; 
@@ -748,33 +758,35 @@
             const years = [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017];
             
             years.forEach(year => {
-                // 1. 원안지 (PDF)
+                // 1. 원안지 (PDF) - 경로 수정: 2025/2025원안.pdf
                 const paperDiv = document.createElement('div');
                 paperDiv.className = 'paper-item';
-                // 임시 경로: papers 폴더 안의 pdf 파일 (실제 파일 필요)
-                const pdfPath = `papers/${year}_원안지.pdf`; 
+                const pdfPath = `${year}/${year}원안.pdf`; 
                 
                 paperDiv.innerHTML = `
-                    <span class="paper-icon">📕</span>
-                    <span class="paper-text" onclick="showPdfPreview('${pdfPath}', '${year}년 원안지')">${year}년 고1 학력평가 원안지</span>
+                    <div class="paper-left" onclick="showPdfPreview('${pdfPath}', '${year}년 원안지')">
+                        <span class="paper-icon">📕</span>
+                        <span class="paper-text">${year}년 고1 학력평가 원안지</span>
+                    </div>
                     <a href="${pdfPath}" download class="btn-download">다운로드</a>
                 `;
                 fileList.appendChild(paperDiv);
 
-                // 2. 정답 (이미지)
+                // 2. 정답 (이미지) - 경로 수정: 2025/2025답.png
                 const answerDiv = document.createElement('div');
                 answerDiv.className = 'paper-item';
-                // 임시 경로: answers 폴더 안의 이미지 파일 (실제 파일 필요)
-                const ansPath = `answers/${year}_답.png`;
+                const ansPath = `${year}/${year}답.png`;
 
                 answerDiv.innerHTML = `
-                    <span class="paper-icon">📘</span>
-                    <span class="paper-text" onclick="showImagePreview('${ansPath}', '${year}년 답안')">${year}년 고1 학력평가 답</span>
+                    <div class="paper-left" onclick="showImagePreview('${ansPath}', '${year}년 답안')">
+                        <span class="paper-icon">📘</span>
+                        <span class="paper-text">${year}년 고1 학력평가 답</span>
+                    </div>
                 `;
                 fileList.appendChild(answerDiv);
             });
 
-            // EBS 링크 추가 (맨 아래)
+            // EBS 링크
             const ebsLink = document.createElement('a');
             ebsLink.className = 'ebs-link-item';
             ebsLink.href = "https://www.ebsi.co.kr/ebs/xip/xipa/retrieveSCVMainInfo.ebs?irecord=202503261&targetCd=D100&cookieGradeVal=high1#none;";
@@ -817,14 +829,8 @@
             const frame = document.createElement('iframe');
             frame.className = 'preview-frame';
             frame.src = path;
-            // 모바일에서도 잘 보이도록 설정
             frame.setAttribute('allowfullscreen', '');
             
-            // 파일 없을 때 에러 처리 (간단한 안내)
-            frame.onerror = () => {
-                alert('파일을 찾을 수 없습니다. papers 폴더에 PDF 파일을 넣어주세요.');
-            };
-
             contentArea.appendChild(frame);
         }
 
@@ -850,9 +856,19 @@
             img.style.height = 'auto';
             img.style.border = '1px solid #eee';
             img.onerror = () => {
-                img.alt = "이미지를 찾을 수 없습니다. answers 폴더를 확인해주세요.";
-                img.style.padding = "20px";
-                img.style.color = "red";
+                // 에러 메시지 표시
+                const errorMsg = document.createElement('div');
+                errorMsg.style.padding = '20px';
+                errorMsg.style.color = 'red';
+                errorMsg.style.border = '1px solid #ffd7d7';
+                errorMsg.style.backgroundColor = '#fff5f5';
+                errorMsg.innerHTML = `
+                    <p>⚠️ 이미지를 찾을 수 없습니다.</p>
+                    <p style="font-size:12px; color:#666;">경로: ${path}</p>
+                    <p style="font-size:12px; color:#666;">확인: ${path.split('/')[0]} 폴더 안에 ${path.split('/')[1]} 파일이 있는지 확인해주세요.</p>
+                `;
+                contentArea.appendChild(errorMsg);
+                img.style.display = 'none';
             };
 
             contentArea.appendChild(img);
@@ -892,6 +908,7 @@
 
             filteredProblems.forEach((prob) => {
                 const fileYear = prob.file.substring(0, 4); 
+                // ★★★ 이미지 경로 수정: 연도 폴더 포함 ★★★
                 const imagePath = `${fileYear}/${prob.file}`; 
 
                 // 교육과정 텍스트 로직
@@ -915,7 +932,7 @@
                     <div class="problem-inner">
                         <div class="prob-header">
                             <span class="year-badge">${badgeContent}</span>
-                            <!-- ★★★ 설명 텍스트(prob.desc) 삭제 ★★★ -->
+                            <!-- 설명 텍스트 삭제됨 -->
                         </div>
                         <div class="prob-image-box">
                             <img src="${imagePath}" class="prob-image" alt="문제 이미지" onerror="this.src=''; this.alt='이미지 로딩 실패 (${imagePath})'">
