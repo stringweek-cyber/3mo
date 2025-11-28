@@ -56,7 +56,6 @@
 
         /* 4. 왼쪽 사이드바 */
         .sidebar {
-            /* ★★★ 너비 확대 (글자 잘림 방지) ★★★ */
             width: 350px; 
             background-color: #fff;
             border-radius: 12px;
@@ -447,9 +446,7 @@
 
         // ★★★ 통합 문제 DB (2025 ~ 2017) ★★★
         const problemDB = [
-            // ----------------------------------------------------
-            // 2025 기출
-            // ----------------------------------------------------
+            // ... (기존 데이터 유지) ...
             { chapter: ["2. 기권과 날씨", "2. 날씨와 기후변화"], file: "2025 (1).png", answer: "④", desc: "해륙풍과 비열" },
             { chapter: ["6. 빛과 파동", "3. 태양계", "3. 빛과 파동", "7. 태양계"], file: "2025 (2).png", answer: "④", desc: "빛의 합성 및 달의 위상" },
             { chapter: ["4. 식물과 에너지", "5. 식물과 에너지"], file: "2025 (3).png", answer: "③", desc: "광합성 과정" },
@@ -732,7 +729,7 @@
             container.appendChild(rootItem);
         }
 
-        // ★★★ 원안지 모음 생성 함수 (경로 수정됨) ★★★
+        // ★★★ 원안지 모음 생성 함수 (경로 수정됨: 원안지모음 폴더 적용) ★★★
         function createOriginalPapers(container, isRootOpen = false) {
             const rootItem = document.createElement('div');
             rootItem.className = 'root-item';
@@ -759,10 +756,10 @@
             const years = [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017];
             
             years.forEach(year => {
-                // 1. 원안지 (PDF) - 경로 수정: 2025/2025원안.pdf
+                // 1. 원안지 (PDF) - 경로 수정: 원안지모음/2025원안.pdf
                 const paperDiv = document.createElement('div');
                 paperDiv.className = 'paper-item';
-                const pdfPath = `${year}/${year}원안.pdf`; 
+                const pdfPath = `원안지모음/${year}원안.pdf`; 
                 
                 paperDiv.innerHTML = `
                     <div class="paper-left" onclick="showPdfPreview('${pdfPath}', '${year}년 원안지')">
@@ -773,7 +770,7 @@
                 `;
                 fileList.appendChild(paperDiv);
 
-                // 2. 정답 (이미지) - 경로 수정: 2025/2025답.png
+                // 2. 정답 (이미지) - 경로 유지: 2025/2025답.png
                 const answerDiv = document.createElement('div');
                 answerDiv.className = 'paper-item';
                 const ansPath = `${year}/${year}답.png`;
