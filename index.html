@@ -958,7 +958,7 @@
                             <span class="year-badge">${badgeContent}</span>
                         </div>
                         <div class="prob-image-box">
-                            <img src="${imagePath}" class="prob-image" alt="문제 이미지" onerror="this.src=''; this.alt='이미지 로딩 실패 (${imagePath})'">
+                            <img src="${imagePath}" class="prob-image" alt="문제 이미지" ${imagePath.endsWith('.webp') ? 'style="max-width:450px;"' : ''} onerror="this.src=''; this.alt='이미지 로딩 실패 (${imagePath})'">
                         </div>
                         <div class="answer-section">
                             <span class="answer-label">정답</span>
